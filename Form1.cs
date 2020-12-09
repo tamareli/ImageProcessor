@@ -239,7 +239,6 @@ namespace ImagesToPDF
                         path = save.FileName;
                     } 
                 }
-
             }));
             t.SetApartmentState(ApartmentState.STA);
             t.Start();
