@@ -114,7 +114,7 @@ namespace ImagesToPDF
                 
                 drawImage(doc, writer, files[files.Count - 1]);
                 if (radioButton1.Checked == true)
-                    addSignToLastPage(writer, pdfName, BaseColor.WHITE);
+                    addSignToLastPage(writer, pdfName, BaseColor.LIGHT_GRAY);
                 else
                     addSignToLastPage(writer, pdfName, BaseColor.BLACK);
 
@@ -151,7 +151,7 @@ namespace ImagesToPDF
             iTextSharp.text.Font font = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.UNDEFINED, 8,1,color);
             Phrase phrase = new Phrase(pdfName, font);
             PdfContentByte canvas = writer.DirectContent;
-            ColumnText.ShowTextAligned(canvas, Element.ALIGN_LEFT, phrase, margin+2, margin+4, 0);
+            ColumnText.ShowTextAligned(canvas, Element.ALIGN_LEFT, phrase, margin+8, margin+10, 0);
         }
 
        
@@ -247,6 +247,7 @@ namespace ImagesToPDF
         }
         private void Form1_Load(object sender, EventArgs e)
         {
+            comboBox1.SelectedIndex = 0;
             radioButton1.Checked = true;
         }
 
@@ -353,7 +354,6 @@ namespace ImagesToPDF
                 comboBox1.Enabled = false;
                 numericUpDown1.Enabled = true;
                 numericUpDown2.Enabled = true;
-                comboBox1.SelectedIndex = -1;
             }
         }
 
@@ -364,7 +364,6 @@ namespace ImagesToPDF
                 comboBox1.Enabled = false;
                 numericUpDown1.Enabled = true;
                 numericUpDown2.Enabled = true;
-                comboBox1.SelectedIndex = -1;
             }
             else
             {
@@ -381,17 +380,28 @@ namespace ImagesToPDF
             this.pageHeight = 10f;
             this.pageWidth = 10f;
             search.Enabled = true;
-            if(comboBox1.SelectedIndex== 0)
+            if(comboBox1.SelectedIndex== 1)
             {
                 this.selectedWidthOfImg = 145f;
                 this.selectedHeightOfImg = 90f;
             }
             else
-                if(comboBox1.SelectedIndex == 1)
+            {
+                if(comboBox1.SelectedIndex == 2)
                 {
                     this.selectedWidthOfImg = 140f;
                     this.selectedHeightOfImg = 105f;
                 }
+                else
+                {
+                    if(comboBox1.SelectedIndex==0)
+                    {
+                        this.selectedWidthOfImg = 144f;
+                        this.selectedHeightOfImg = 109f;
+                    }
+                }
+            }
+
             this.pageHeight += this.selectedHeightOfImg;
             this.pageWidth += this.selectedWidthOfImg;
             this.marginTopBottom = iTextSharp.text.Utilities.MillimetersToPoints((this.pageHeight- this.selectedHeightOfImg)/2);
